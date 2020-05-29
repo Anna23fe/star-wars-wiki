@@ -1,0 +1,17 @@
+.Header{
+    margin-bottom: 30px;
+}
+
+.Header h1 {
+    width: 40%;
+    margin-bottom: 0;
+}
+
+.Header .main_nav{
+    width: 60%;
+    justify-content: space-evenly;
+    list-style: none;
+    align-items: center;
+    margin-bottom: 0;
+}
+
