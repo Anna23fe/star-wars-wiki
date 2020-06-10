@@ -3,6 +3,7 @@ import './Loader.css';
 
 const Loader = () => {
     return (
+        <div className="Loader">
         <div className="Loader ids-default">
             <div></div>
             <div></div>
@@ -12,6 +13,11 @@ const Loader = () => {
             <div></div>
             <div></div>
             <div></div> 
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div> 
+        </div>
         </div>
     );
 }

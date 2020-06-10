@@ -14,38 +14,39 @@ export default class SwapiService{
   
       async getAllPeople() {
           const response = await this.getData('/people/');
-          return response.results;
+          return response.results.map(this.transformPerson);
       }    
   
       async getPerson(id) {
         const person = await this.getData(`/people/${id}/`);
-        return this.getData(`/people/${id}/`);
+        return this.transformPerson(person);
       }
       async getPlanet(id) {
-        return this.getData(`/planets/${id}/`);
+        const planet = await this.getData(`/planets/${id}/`);
+        return this.transformPlanet(planet);
      }
      
      getId(item) {
-       return item.url.match(/\/([0-9]*)\/\$/)[1];
+       return item.url.match(/\/([0-9]*)\/$/)[1];
      }
 
-     transformPerson(planet) {
+     transformPerson = (person) => {
       return {
-        id: this.getId(planet),
+        id: this.getId(person),
         name: person.name,
         gender: person.gender,
         mass: person.mass,
-        homeworld: person.homeworld,
+        birthDate: person.birth_year,
       }
      }
 
-     transformPerson(person) {
+     transformPlanet(planet) {
        return {
-         id: this.getId(person),
-         name: person.name,
-         gender: person.gender,
-         mass: person.mass,
-         homeworld: person.birthDate,
+         id: this.getId(planet),
+         name: planet.name,
+         diameter: planet.diameter,
+         population: planet.population,
+         gravity: planet.gravity,
        }
       }
   }

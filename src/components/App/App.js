@@ -1,6 +1,4 @@
 import React from 'react';
-
-import SwapiService from '../../services/SwapiService';
 import './App.css';
 
 import Header from '../Header';
@@ -16,35 +14,26 @@ export default class App extends React.Component {
         selectedPerson: 3,
     }
 
-    render() {
-
-    const swapi = new SwapiService();
-  
-    swapi.getAllPeople()
-      .then((body) => {
-          console.log(body);
-      })
-
       onTogglePlanet = () => {
           this.setState((prevState) => {
-              return {isRandomPlanet: !prevState.isRandomPlanet,}
+              return {isRandomPlanet: !prevState.isRandomPlanet};
           });
       }
 
       onPersonSelect = (id) => {
           this.setState({
               selectedPerson: id
-          });
-        
+          });  
       }
-
+    
+    render() {
     return (
         <div className="App">
            <Header />
            {this.state.isRandomPlanet && <RandomPlanet />}
            <button onClick={this.onTogglePlanet}>
                on/off planet</button>
-               <ErrorTest/>
+            <ErrorTest/>
            <div className="d-flex justify-content-between">
                <ItemsList onItemClick={this.onPersonSelect} />
                <DetailsInfo personId={this.state.selectedPerson}

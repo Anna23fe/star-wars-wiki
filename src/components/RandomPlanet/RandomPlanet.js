@@ -2,23 +2,12 @@ import React from 'react';
 
 import './RandomPlanet.css';
 import SwapiService from '../../services/SwapiService';
+import Loader from '../Loader';
 import ErrorComponent from '../ErrorComponent';
 
 export default class RandomPlanet extends React.Component{
 
-    constructor() {
-        super();     
-    }
-
     swapi = new SwapiService();
-    state = {
-        id: 3,
-        name: null,
-        diametr: null,
-        population: null,
-        gravity: null,
-    }
-
     state = {
         planet: {},
         load: true,
@@ -27,18 +16,17 @@ export default class RandomPlanet extends React.Component{
 
     componentDidMount() {
         this.updatePlanet();
-        this.interval=setInterval(this.updatePlanet, 2000);   
+        this.interval = setInterval(this.updatePlanet, 5000);   
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
-       
     }
-
 
     onError = () => {
         this.setState({
-            error: true
+            error: true,
+            load: false,
         });
     }
 
@@ -47,7 +35,7 @@ export default class RandomPlanet extends React.Component{
     }
 
     updatePlanet = () => {
-        const id = Math.round(Math.random()*30);
+        const id = Math.round(Math.random()*25);
         this.swapi.getPlanet(id)
         .then(this.onPlanetLoaded)
         .catch(this.onError);
@@ -66,33 +54,35 @@ export default class RandomPlanet extends React.Component{
                 {content}
             </div>    
         );
+        }
+    }
 
-        const PlanetView = (props) => {
-            const { id, name, diametr, population, gravity} = props.planet;
+    const PlanetView = (props) => {
+        const { id, name, diameter, population, gravity} = props.planet;
+        //const imgUrl = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`
         return (
-            <React.Fragment>
-            <h3>{name}</h3>
-            <div className="d-flex planet_block">
-                <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg `} alt="planet" />
-            <ul className="planet_info_block">
-                <li> 
-                    <span>diametr</span>
-                    <span>{diametr}</span>
-                </li>
-                <li> 
-                    <span>population</span>
-                    <span>{population}</span>
-                </li> 
-                 <li> 
-                    <span>gravity</span>
-                     <span>{gravity}</span>
-                </li>
-            </ul>
-            </div>
-        </div>
-        </React.Fragment>
-    )
-}
+            <>
+                <h3>{name}</h3>
+                <div className="d-flex planet_block">
+                    <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="planet" />
+                     <ul className="planet_info_block">
+                         <li> 
+                            <span>diameter</span>
+                            <span>{diameter}</span>
+                        </li>
+                        <li> 
+                            <span>population</span>
+                            <span>{population}</span>
+                        </li> 
+                        <li> 
+                            <span>gravity</span>
+                            <span>{gravity}</span>
+                        </li>
+                    </ul>
+                </div>
+            </>
+        );
+    }
 
-}
+
 

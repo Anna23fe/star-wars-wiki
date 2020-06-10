@@ -2,6 +2,7 @@ import React from 'react';
 
 import './ItemsList.css';
 import SwapiService from '../../services/SwapiService';
+import Loader from '../Loader';
 
 export default class ItemsList extends React.Component {
     
@@ -33,24 +34,18 @@ export default class ItemsList extends React.Component {
     }
 
     render() {
-        const items = this.renderItems(people);
+       
         const {people} = this.state;
         if(!people) {
             return <Loader />
         }
 
+        const items = this.renderItems(people);
+
     return(
         <ul className="ItemsList">
-            <li>
-                First person
-            </li>
-            <li>
-                Second person
-            </li>
-            <li>
-                Third person
-            </li>
+         {items}
         </ul>
-    )
+    );
 }
 }
