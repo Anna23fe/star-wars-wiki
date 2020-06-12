@@ -3,43 +3,56 @@ import './App.css';
 
 import Header from '../Header';
 import RandomPlanet from '../RandomPlanet/RandomPlanet';
+import ErrorTest from '../ErrorTest';
+import ErrorComponent from '../ErrorComponent';
+import PeoplePage from '../PeoplePage';
 import ItemsList from '../ItemsList';
 import DetailsInfo from '../DetailsInfo';
-import ErrorTest from '../ErrorTest';
+import SwapiService from '../../services/SwapiService';
 
 
 export default class App extends React.Component {
-    state = {
+
+    swapi = new SwapiService();
+        state = {
         isRandomPlanet: true,
-        selectedPerson: 3,
+        error: false,
+        
     }
 
-      onTogglePlanet = () => {
-          this.setState((prevState) => {
-              return {isRandomPlanet: !prevState.isRandomPlanet};
-          });
-      }
+    componentDidCatch(){
+        this.setState({ error: true})
+    }
 
-      onPersonSelect = (id) => {
-          this.setState({
-              selectedPerson: id
-          });  
-      }
-    
+    onTogglePlanet = () => {
+        this.setState((prevState) => {
+            return {isRandomPlanet: !prevState.isRandomPlanet};
+        });
+    }
+
     render() {
+        if (this.state.error) {
+            return <ErrorComponent />
+        }
+
     return (
         <div className="App">
-           <Header />
-           {this.state.isRandomPlanet && <RandomPlanet />}
-           <button onClick={this.onTogglePlanet}>
+            <Header />
+            {this.state.isRandomPlanet && <RandomPlanet />}
+            <button onClick={this.onTogglePlanet}>
                on/off planet</button>
             <ErrorTest/>
-           <div className="d-flex justify-content-between">
-               <ItemsList onItemClick={this.onPersonSelect} />
-               <DetailsInfo personId={this.state.selectedPerson}
-               />
-           </div>
+            <PeoplePage />
+
+           <div className="PeoplePage d-flex justify-content-between">
+               <ItemsList 
+               onItemClick={this.onPersonSelect} 
+               getData={this.swapi.getAllPeople}
+               renderItem= {(item) => `${item.name}, ${item.diametr}`}/>
+               <DetailsInfo personId={this.state.selectedPerson} />
+            </div>
+           
         </div>
     )
-}
+    }
 }
