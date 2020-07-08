@@ -1,17 +1,17 @@
 .RandomPlanet{
-    background-color: rgb(71, 14, 77);
+    background-color: #f803f89d;
     padding: 15px;
     margin-bottom: 30px;
 }
 
-.RandomPlanet .planet_block img {
+.RandomPlanet .planet_block img{
     width: 30%;
 }
 
 .RandomPlanet .planet_block .planet_info_block{
     width: 70%;
     list-style: none;
-} 
+}
 
 .RandomPlanet .planet_block .planet_info_block span:first-child {
     margin-right: 10px;

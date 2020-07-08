@@ -1,21 +1,16 @@
-.DetailsInfo {
-   
-    background-color:   rgb(71, 14, 77);
-    padding: 15px;
+.DetailsInfo{
+    background-color: #f803f89d;
     padding: 15px;
 }
 
-.DetailsInfo .info_block {
-align-items: center;
+.DetailsInfo .info_block{
+    align-items: flex-start;
 }
-
-.DetailsInfo .info_block img {
+.DetailsInfo .info_block img{
     width: 40%;
 }
+
 .DetailsInfo .detail_info_block{
     list-style: none;
-    padding: 15px;
+    padding-left: 15%;
 }
-
-
-
